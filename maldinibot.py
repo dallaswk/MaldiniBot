@@ -33,12 +33,7 @@ def listener(messages):
             f.write(mensaje + "\n")
             f.close()
             print (mensaje)
-        elif m.content_type == 'new_chat_participant':
-            if cid == grupo:
-                        bot.send_message( cid, 'Hola' )
-        elif m.content_type == 'left_chat_participant':
-            if cid == grupo:
-                    bot.send_message( cid, 'Adiós' )
+      
                 
                 
 bot.set_update_listener(listener) 
@@ -58,9 +53,10 @@ def command_start(m):
 
 ##########XML################
 
+@bot.message_handler(commands=['xml'])
 def command_xml(m): 
     cid = m.chat.id
-    f = open("live-soccer.xml",'r') #Archivo XML de ejemplo
+    f = open("live-soccer.xml",'r')
     data = f.read()
     i = 0
     doc = minidom.parseString(data)
@@ -68,8 +64,7 @@ def command_xml(m):
         title= doc.getElementsByTagName('title')[i].firstChild.nodeValue
         print (title)
         i +=1
-        bot.send_message( cid, "ok")
-
+        bot.send_message( cid, title)
 
 
 
